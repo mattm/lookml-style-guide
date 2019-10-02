@@ -17,13 +17,11 @@ Dimensions will default to referencing a column that matches the name of the dim
 ```lookml
 # Good
 dimension: is_first_billing {
-  description: "..."
   type: yesno
 }
 
 # Bad
 dimension: is_first_billing {
-  description: "..."
   type: yesno
   sql: ${TABLE}.is_first_billing ;;
 }
@@ -34,14 +32,12 @@ Similarly, no need to include a `label` most of the time because Looker will aut
 ```lookml
 # Good
 dimension: is_first_billing {
-  description: "..."
   type: yesno
 }
 
 # Bad
 dimension: is_first_billing {
   label: "Is First Billing"
-  description: "..."
   type: yesno
 }
 ```
@@ -63,6 +59,26 @@ explore: companies {
     relationship: one_to_many
     type: left_outer
     sql_on: ${companies.company_id} = ${billings.company_id} ;;
+  }
+}
+```
+
+### Naming count measures
+
+Use a singular noun representing whatever thing you're measuring suffixed with `_count`. For example, `company_count`, `user_count`, `beacon_count`, `purchase_count`, etc.
+
+```lookml
+# Good
+view: companies {
+  measure: company_count {
+    type: count
+  }
+}
+
+# Bad
+view: companies {
+  measure: count {
+    type: count
   }
 }
 ```
