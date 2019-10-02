@@ -66,3 +66,7 @@ explore: companies {
   }
 }
 ```
+
+## Credits
+
+A lot of these preferences were developed in conjection with others during my time at Help Scout and Automattic. Huge thanks in particular to to Eli Overbey, Simon Ouderkirk, and Jen Wilson for the many discussions that have influenced my thinking on writing LookML.
