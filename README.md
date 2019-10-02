@@ -65,7 +65,7 @@ explore: companies {
 
 ### Naming count measures
 
-Use a singular noun representing whatever thing you're measuring suffixed with `_count`. For example, `company_count`, `user_count`, `beacon_count`, `purchase_count`, etc.
+Use a singular noun representing whatever thing you're measuring suffixed with `_count`. For example, `company_count`, `user_count`, `beacon_count`, `purchase_count`, etc. Avoid the default `count` measure name that's created when you use Looker's "Create View From Table" feature. This helps avoid ambiguity that might arise when people see just "Count" in analyses and visualizations.
 
 ```lookml
 # Good
@@ -82,6 +82,7 @@ view: companies {
   }
 }
 ```
+
 
 ## Credits
 
