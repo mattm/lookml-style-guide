@@ -15,13 +15,13 @@ When possible, I try to take advantage of Looker's default parameter values to m
 Dimensions will default to referencing a column that matches the name of the dimension, so you can leave the `sql` parameter out in lot of cases:
 
 ```lookml
--- Good
+# Good
 dimension: is_first_billing {
   description: "..."
   type: yesno
 }
 
--- Bad
+# Bad
 dimension: is_first_billing {
   description: "..."
   type: yesno
@@ -32,13 +32,13 @@ dimension: is_first_billing {
 Similarly, no need to include a `label` most of the time because Looker will automatically case titleize it:
 
 ```lookml
--- Good
+# Good
 dimension: is_first_billing {
   description: "..."
   type: yesno
 }
 
--- Bad
+# Bad
 dimension: is_first_billing {
   label: "Is First Billing"
   description: "..."
@@ -49,7 +49,7 @@ dimension: is_first_billing {
 Another example is excluding `type: left_outer` from joins because left joining is the default behavior:
 
 ```lookml
--- Good
+# Good
 explore: companies {
   join: billings {
     relationship: one_to_many
@@ -57,7 +57,7 @@ explore: companies {
   }
 }
 
--- Bad
+# Bad
 explore: companies {
   join: billings {
     relationship: one_to_many
