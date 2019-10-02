@@ -6,3 +6,63 @@ My goal with this guide is twofold: first, to share what I've learned so that it
 
 If you're interested in this topic, you may also enjoy my [SQL Style Guide](https://github.com/mattm/sql-style-guide), my [Matt On Analytics](http://eepurl.com/dITJS9) newsletter, and [my blog](https://mattmazur.com/category/analytics/) where I write about analytics and data analysis.
 
+## Guidelines
+
+### Omit unnecessary parameters
+
+When possible, I try to take advantage of Looker's default parameter values to minimize how much LookML I have to write. I think the LookML looks cleaner that way, even if it sometimes comes at the cost of being less explicit. A few examples:
+
+Dimensions will default to referencing a column that matches the name of the dimension, so you can leave the `sql` parameter out in lot of cases:
+
+```lookml
+-- Good
+dimension: is_first_billing {
+  description: "..."
+  type: yesno
+}
+
+-- Bad
+dimension: is_first_billing {
+  description: "..."
+  type: yesno
+  sql: ${TABLE}.is_first_billing ;;
+}
+```
+
+Similarly, no need to include a `label` most of the time because Looker will automatically case titleize it:
+
+```lookml
+-- Good
+dimension: is_first_billing {
+  description: "..."
+  type: yesno
+}
+
+-- Bad
+dimension: is_first_billing {
+  label: "Is First Billing"
+  description: "..."
+  type: yesno
+}
+```
+
+Another example is excluding `type: left_outer` from joins because left joining is the default behavior:
+
+```lookml
+-- Good
+explore: companies {
+  join: billings {
+    relationship: one_to_many
+    sql_on: ${companies.company_id} = ${billings.company_id} ;;
+  }
+}
+
+-- Bad
+explore: companies {
+  join: billings {
+    relationship: one_to_many
+    type: left_outer
+    sql_on: ${companies.company_id} = ${billings.company_id} ;;
+  }
+}
+```
