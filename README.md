@@ -83,6 +83,39 @@ view: companies {
 }
 ```
 
+### Naming sum measures
+
+For sums, prefix the measure name with `total_`. For example, `total_payments`, `total_taxes`, etc:
+
+```lookml
+# Good
+view: payments {
+  measure: total_payments {
+    type: sum
+    sql: ${TABLE}.amount ;;
+  }
+}
+```
+
+One exception is when you're summing a column that already represents a count of something. For example, if you have a `companies` table and there's a `users` column that representing the number of users a company has, you should name the measure like you would a count measure:
+
+```lookml
+# Good
+view: companies {
+  measure: user_count {
+    type: sum
+    sql: ${TABLE}.users ;;
+  }
+}
+
+# Bad
+view: companies {
+  measure: total_users {
+    type: sum
+    sql: ${TABLE}.users ;;
+  }
+}
+```
 
 ## Credits
 
