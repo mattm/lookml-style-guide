@@ -97,7 +97,7 @@ view: payments {
 }
 ```
 
-One exception is when you're summing a column that already represents a count of something. For example, if you have a `companies` table and there's a `users` column that representing the number of users a company has, you should name the measure like you would a count measure:
+One exception is when you're summing a column that already represents a count. For example, if you have a `companies` table and there's a `users` column that representing the number of users a company has, you should name the measure like you would a count because the measure represents the number of users, even though it's using a sum behind the scenes.
 
 ```lookml
 # Good
