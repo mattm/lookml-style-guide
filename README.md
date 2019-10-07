@@ -8,6 +8,27 @@ If you're interested in this topic, you may also enjoy my [SQL Style Guide](http
 
 ## Guidelines
 
+### All visible dimensions should have a description
+
+It's tempting to omit descriptions for dimensions whose purpose seems obvious from the name, but what may be obvious to you may not be obvious to other analysts. You can almost always add clarity by adding a meaningful description to a dimension.
+
+```lookml
+# Good
+dimension: promotion_description {
+  description: "A description of any promotion that was applied to this billing. For example, "Plus Plan 25%" or "Non-profit Discount". A billing can only have 1 promotion max."
+}
+
+# Bad: A description that restates the dimension name
+dimension: promotion_description {
+  description: "A description of the promotion"
+}
+
+# Bad: No description
+dimension: promotion_description {}
+```
+
+The only exception is dimensions that won't be visible to the user when performing analyses, for example primary or foreign keys that do not need to be exposed to users. For these type of dimensions, descriptions are optional.
+
 ### Omit unnecessary parameters
 
 When possible, I try to take advantage of Looker's default parameter values to minimize how much LookML I have to write. I think the LookML looks cleaner that way, even if it sometimes comes at the cost of being less explicit. A few examples:
