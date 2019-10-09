@@ -38,11 +38,13 @@ Dimensions will default to referencing a column that matches the name of the dim
 ```lookml
 # Good
 dimension: is_first_billing {
+  description: "..."
   type: yesno
 }
 
 # Bad
 dimension: is_first_billing {
+  description: "..."
   type: yesno
   sql: ${TABLE}.is_first_billing ;;
 }
@@ -53,13 +55,30 @@ Similarly, no need to include a `label` most of the time because Looker will aut
 ```lookml
 # Good
 dimension: is_first_billing {
+  description: "..."
   type: yesno
 }
 
 # Bad
 dimension: is_first_billing {
   label: "Is First Billing"
+  description: "..."
   type: yesno
+}
+```
+
+And no need to include `type: string` which is the default type:
+
+```lookml
+# Good
+dimension: name {
+  description: "..."
+}
+
+# Bad
+dimension: name {
+  description: "..."
+  type: string
 }
 ```
 
@@ -92,6 +111,7 @@ It's [required](https://docs.looker.com/data-modeling/learning-lookml/working-wi
 # Good
 view: companies {
   dimension: company_id {
+    description: "..."
     primary_key: yes
   }
 }
