@@ -84,6 +84,19 @@ explore: companies {
 }
 ```
 
+## Every view should have a primary key defined
+
+It's [required](https://docs.looker.com/data-modeling/learning-lookml/working-with-joins#primary_keys_required) for [symmetric aggregates](https://discourse.looker.com/t/symmetric-aggregates/261) to work correctly.
+
+```
+# Good
+view: companies {
+  dimension: company_id {
+    primary_key: yes
+  }
+}
+```
+
 ### Naming count measures
 
 Use a [singular noun](https://twitter.com/jgkite/status/1171845537311707136) representing whatever thing you're measuring suffixed with `_count`. For example, `company_count`, `user_count`, `beacon_count`, `purchase_count`, etc. Avoid the default `count` measure name that's created when you use Looker's "Create View From Table" feature. This helps avoid ambiguity that might arise when people see just "Count" in analyses and visualizations.
