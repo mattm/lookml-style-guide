@@ -84,7 +84,7 @@ explore: companies {
 }
 ```
 
-## Every view should have a primary key defined
+### Every view should have a primary key defined
 
 It's [required](https://docs.looker.com/data-modeling/learning-lookml/working-with-joins#primary_keys_required) for [symmetric aggregates](https://discourse.looker.com/t/symmetric-aggregates/261) to work correctly.
 
