@@ -88,7 +88,7 @@ explore: companies {
 
 It's [required](https://docs.looker.com/data-modeling/learning-lookml/working-with-joins#primary_keys_required) for [symmetric aggregates](https://discourse.looker.com/t/symmetric-aggregates/261) to work correctly.
 
-```
+```lookml
 # Good
 view: companies {
   dimension: company_id {
@@ -96,6 +96,8 @@ view: companies {
   }
 }
 ```
+
+If the table you're working with does not have a primary key, you can always create a primary key dimension by concatenating other columns together as outlined in [the docs](https://docs.looker.com/reference/field-params/primary_key). Ideally though you would transform the table prior to analyzing it in Looker using a tool like [dbt](http://getdbt.com/) and create a primary key there if needed, eliminating the need to concatenate fields in Looker (more on dbt in a future tip).
 
 ### Naming count measures
 
