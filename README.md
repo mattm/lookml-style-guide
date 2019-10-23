@@ -107,6 +107,74 @@ explore: companies {
 }
 ```
 
+### Alphabetize dimensions, then alphabetize measures
+
+Looker doesn't care about the order of the fields within a view, but it makes it easier to find specific fields if you simply list dimensions alphabetically then list measures alphabetically:
+
+```lookml
+# Good
+view: companies {
+  dimension: id {
+    description: "..."
+    type: number
+  }
+  
+  dimension: has_closed {
+    description: "..."
+    type: yesno
+  }
+
+  dimension: name {
+    description: "..."
+  }
+
+  measure: closed_count {
+    description: "..."
+    type: count
+    filters: {
+      field: has_closed
+      value: "yes"
+    }
+  }
+
+  measure: company_count {
+    description: "..."
+    type: count
+  }
+}
+
+# Bad
+view: companies {
+  measure: closed_count {
+    description: "..."
+    type: count
+    filters: {
+      field: has_closed
+      value: "yes"
+    }
+  }
+
+  dimension: id {
+    description: "..."
+    type: number
+  }
+
+  dimension: name {
+    description: "..."
+  }
+
+  measure: company_count {
+    description: "..."
+    type: count
+  }
+
+  dimension: has_closed {
+    description: "..."
+    type: yesno
+  }
+}
+```
+
 ### Every view should have a primary key defined
 
 It's [required](https://docs.looker.com/data-modeling/learning-lookml/working-with-joins#primary_keys_required) for [symmetric aggregates](https://discourse.looker.com/t/symmetric-aggregates/261) to work correctly.
