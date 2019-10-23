@@ -29,6 +29,10 @@ dimension: promotion_description {}
 
 The only exception is dimensions that won't be visible to the user when performing analyses, for example primary or foreign keys that do not need to be exposed to users. For these type of dimensions, descriptions are optional.
 
+### Remove unused fields and views
+
+If you've taken advantage of Looker's "Create View from Table" feature, you may have wound up with a lot of unused views and dimensions. It's tempting to leave them in place because you may need them one day, but my preference is to remove them entirely. The cost of creating new views and dimensions is small compared to the cognitive overhead resulting from lots of unused views and hidden fields that aren't used in any analyses.
+
 ### Omit unnecessary parameters
 
 When possible, I try to take advantage of Looker's default parameter values to minimize how much LookML I have to write. I think the LookML looks cleaner that way, even if it sometimes comes at the cost of being less explicit. A few examples:
