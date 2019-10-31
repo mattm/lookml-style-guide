@@ -107,6 +107,50 @@ explore: companies {
 }
 ```
 
+### Yes/No dimensions should be exposed as case/when string dimensions
+
+Rather than use a dimension like `is_paying` in an analysis, it's better to hide it and make a derived `paying_status` string dimension available. This makes it abundently clear what the yes and no values represent especially when displayed in visualizations (pivoting a measure on a yes/no and seeing Yes and No in a legend is often unclear).
+
+```lookml
+# Good: Hiding the yes/no dimension and creating a LookML case/when dimension based on it
+dimension: is_paying {
+  type: yesno
+  hidden: yes
+}
+
+dimension: paying_status {
+  description: "Whether the company is currently paying or non-paying"
+  case:
+    when: {
+      sql: ${is_paying} ;;
+      label: "Paying"
+    }
+    else: "Non-Paying"
+  }
+}
+
+# Bad: Using SQL to determine the string values
+
+# You want to use LookML case/when so that Looker displays a dropdown that users can select from when filtering
+# Otherwise Looker will simply display a text field which is less easy to use.
+
+dimension: is_paying {
+  type: yesno
+  hidden: yes
+}
+
+dimension: paying_status {
+  description: "Whether the company is currently paying or non-paying"
+  sql: if(${is_paying}, "Paying", "Non-Paying") ;;
+}
+
+# Bad: Exposing the yes/no dimension to end-users
+dimension: is_paying {
+  description: "Whether the company is currently a paying customer"
+  type: yesno
+}
+```
+
 ### Alphabetize dimensions, then alphabetize measures
 
 Looker doesn't care about the order of the fields within a view, but it makes it easier to find specific fields if you simply list dimensions alphabetically then list measures alphabetically:
