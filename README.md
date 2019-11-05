@@ -289,6 +289,27 @@ view: companies {
 }
 ```
 
+## Pay attention to white space
+
+* Include a single space after colons (`type: sum`)
+* Include a single space before double-semicolons (`sql: ${TABLE}.amount ;;`)
+* Include a space between the field name and the opening curly bracees `measure: total_payments {`
+
+```lookml
+# Good
+measure: total_payments {
+  type: sum
+  sql: ${TABLE}.amount ;;
+}
+
+# Bad
+measure:total_payments{
+  type:  sum
+  sql:${TABLE}.amount;;
+}
+
+```
+
 ## Credits
 
 A lot of these preferences were developed in conjection with others during my time at Help Scout and Automattic. Huge thanks in particular to to Eli Overbey, Simon Ouderkirk, Anna Elek, and Jen Wilson for the many discussions that have influenced my thinking on writing LookML.
