@@ -289,6 +289,51 @@ view: companies {
 }
 ```
 
+
+### Naming time-based dimensions
+
+If you use Looker's Create View From Table feature to import a table that includes a column like `created_at`, Looker will create the dimension like so:
+
+```lookml
+# OK
+dimension_group: created {
+  type: time
+  timeframes: [
+    raw,
+    time,
+    date,
+    week,
+    month,
+    quarter,
+    year
+  ]
+  sql: ${TABLE}.created_at ;;
+}
+```
+
+In an explore, you'll wind up with "Created Date", "Created Week", etc.
+
+This is alright, but because I advocate for [omitting all unnecessary parameters](https://github.com/mattm/lookml-style-guide#omit-unnecessary-parameters) I prefer to tweak this to nix the `sql` parameter. Otherwise only dimension groups will have a `sql` parameter and all others won't (because the dimension name matches the column name so it's unnecessary).
+
+```lookml
+# Good
+dimension_group: created_at {
+  label: "Created"
+  type: time
+  timeframes: [
+    raw,
+    time,
+    date,
+    week,
+    month,
+    quarter,
+    year
+  ]
+}
+```
+
+The dimension will appear the same in an explore ("Created Date", "Created Week", etc) but your LookML will be cleaner because you've omitted the `sql` parameter like all of the other dimensions. As an added benefit, if you wind up referencing this dimension elsewhere, you'll wind up referencing something like `created_at_date` which makes it clear that the date is being derived from a date+time column (because the [column name is suffixed](https://github.com/mattm/sql-style-guide#column-name-conventions) with `_at`).
+
 ## Pay attention to white space
 
 * Include a single space after colons (`type: sum`)
@@ -307,7 +352,6 @@ measure:total_payments{
   type:  sum
   sql:${TABLE}.amount;;
 }
-
 ```
 
 ## Credits
